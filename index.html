@@ -3,34 +3,41 @@
 <head>
   <title>Enviar ubicación</title>
   <script>
-    // Importar la biblioteca de SendGrid
-    const sg = require('@sendgrid/mail');
-
-    // Configurar la API de SendGrid
-    sg.setApiKey(process.env.SENDGRID_API_KEY);
-
-    // Obtener la ubicación específica (latitud y longitud)
-    const latitud = '40.7128';
-    const longitud = '-74.0060';
-
-    // Crear el cuerpo de la carta de correo electrónico
-    const cuerpo = `Esta es mi ubicación en Google Maps: https://www.google.com/maps/dir//?api=1&destination=${latitud},${longitud}`;
-
     // Crear el objeto de correo electrónico
     const correo = {
+      from: 'youremail@gmail.com',
       to: 'maykellbarrera4@gmail.com',
       subject: 'Ubicación',
-      body: cuerpo,
+      text: `Esta es mi ubicación en Google Maps: https://www.google.com/maps/dir//?api=1&destination=40.7128,-74.0060`,
     };
 
-    // Enviar la carta de correo electrónico automáticamente
-    sg.send(correo)
-      .then(() => {
-        console.log('Correo enviado con éxito!');
-      })
-      .catch((error) => {
-        console.error('Error al enviar el correo:', error);
+    // Crear el transporte de correo electrónico
+    const transporter = {
+      host: 'smtp.gmail.com',
+      port: 587,
+      secure: false,
+      auth: {
+        user: 'youremail@gmail.com',
+        pass: 'yourpassword',
+      },
+    };
+
+    // Enviar la carta de correo electrónico
+    const sendMail = () => {
+      const nodemailer = require('nodemailer');
+      const mailer = nodemailer.createTransport(transporter);
+
+      mailer.sendMail(correo, (error, info) => {
+        if (error) {
+          console.error('Error al enviar el correo:', error);
+        } else {
+          console.log('Correo enviado con éxito!');
+        }
       });
+    };
+
+    // Ejecutar la función sendMail cuando el documento esté listo
+    document.addEventListener('DOMContentLoaded', sendMail);
   </script>
 </head>
 <body>
