@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hackeado</title>
+    <style>
+        body {
+            background-color: black;
+            color: lime;
+            font-family: 'Courier New', Courier, monospace;
+            text-align: center;
+            margin-top: 15%;
+            overflow: hidden;
+        }
+
+        h1 {
+            font-size: 50px;
+            text-transform: uppercase;
+            animation: glitch 1s infinite;
+            color: red;
+        }
+
+        p {
+            font-size: 24px;
+            animation: blink 1s steps(5, start) infinite;
+        }
+
+        @keyframes glitch {
+            0% {
+                text-shadow: 2px 0 red, -2px 0 blue;
+            }
+            20% {
+                text-shadow: -2px 0 red, 2px 0 blue;
+            }
+            40% {
+                text-shadow: 2px 0 red, -2px 0 blue;
+            }
+            60% {
+                text-shadow: -2px 0 red, 2px 0 blue;
+            }
+            80% {
+                text-shadow: 2px 0 red, -2px 0 blue;
+            }
+            100% {
+                text-shadow: -2px 0 red, 2px 0 blue;
+            }
+        }
+
+        @keyframes blink {
+            0% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Ahora mismo ya localicé tu ubicación</h1>
+    <p>Al haber entrado en este link... ¡has sido hackeado!</p>
+</body>
+</html>
