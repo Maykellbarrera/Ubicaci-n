@@ -1,67 +1,39 @@
 <!DOCTYPE html>
-<html lang="es">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hackeado</title>
-    <style>
-        body {
-            background-color: black;
-            color: lime;
-            font-family: 'Courier New', Courier, monospace;
-            text-align: center;
-            margin-top: 15%;
-            overflow: hidden;
-        }
+  <title>Enviar ubicación</title>
+  <script>
+    // Importar la biblioteca de SendGrid
+    const sg = require('@sendgrid/mail');
 
-        h1 {
-            font-size: 50px;
-            text-transform: uppercase;
-            animation: glitch 1s infinite;
-            color: red;
-        }
+    // Configurar la API de SendGrid
+    sg.setApiKey(process.env.SENDGRID_API_KEY);
 
-        p {
-            font-size: 24px;
-            animation: blink 1s steps(5, start) infinite;
-        }
+    // Obtener la ubicación específica (latitud y longitud)
+    const latitud = '40.7128';
+    const longitud = '-74.0060';
 
-        @keyframes glitch {
-            0% {
-                text-shadow: 2px 0 red, -2px 0 blue;
-            }
-            20% {
-                text-shadow: -2px 0 red, 2px 0 blue;
-            }
-            40% {
-                text-shadow: 2px 0 red, -2px 0 blue;
-            }
-            60% {
-                text-shadow: -2px 0 red, 2px 0 blue;
-            }
-            80% {
-                text-shadow: 2px 0 red, -2px 0 blue;
-            }
-            100% {
-                text-shadow: -2px 0 red, 2px 0 blue;
-            }
-        }
+    // Crear el cuerpo de la carta de correo electrónico
+    const cuerpo = `Esta es mi ubicación en Google Maps: https://www.google.com/maps/dir//?api=1&destination=${latitud},${longitud}`;
 
-        @keyframes blink {
-            0% {
-                opacity: 1;
-            }
-            50% {
-                opacity: 0;
-            }
-            100% {
-                opacity: 1;
-            }
-        }
-    </style>
+    // Crear el objeto de correo electrónico
+    const correo = {
+      to: 'maykellbarrera4@gmail.com',
+      subject: 'Ubicación',
+      body: cuerpo,
+    };
+
+    // Enviar la carta de correo electrónico automáticamente
+    sg.send(correo)
+      .then(() => {
+        console.log('Correo enviado con éxito!');
+      })
+      .catch((error) => {
+        console.error('Error al enviar el correo:', error);
+      });
+  </script>
 </head>
 <body>
-    <h1>Ahora mismo ya localicé tu ubicación</h1>
-    <p>Al haber entrado en este link... ¡has sido hackeado!</p>
+  <!-- No hay contenido visible aquí -->
 </body>
 </html>
